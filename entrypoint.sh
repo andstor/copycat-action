@@ -49,7 +49,7 @@ echo "Copying \"${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${GITHUB_TOKEN}@github.com/${SRC_REPO}.git
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${DST_REPO}.git
 
-mkdir -p DIR
+mkdir -p ${DST_REPO_NAME}/${DIR}
 cp -rf ${SRC_REPO_NAME}/${SRC_PATH} ${DST_REPO_NAME}/${DST_PATH}
 
 cd ${DST_REPO_NAME}
