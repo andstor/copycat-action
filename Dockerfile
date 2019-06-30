@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.10
 
 LABEL repository="https://github.com/andstor/copycat-action"
 LABEL homepage="https://github.com/andstor/copycat-action"
