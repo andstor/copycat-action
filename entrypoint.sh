@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eo pipefail
 
 if [[ -z "${SRC_PATH}" ]]; then
   echo "SRC_PATH environment variable is missing. Cannot proceed."
@@ -34,7 +35,7 @@ DST_BRANCH="${DST_BRANCH:-master}"
 
 SRC_REPO="${GITHUB_REPOSITORY}${SRC_WIKI}"
 SRC_REPO_NAME="${GITHUB_REPOSITORY#*/}${SRC_WIKI}"
-DST_REPO="${DST_REPO_NAME}/${DST_OWNER}${DST_WIKI}"
+DST_REPO="${DST_OWNER}/${DST_REPO_NAME}${DST_WIKI}"
 DST_REPO_NAME="${DST_REPO_NAME}${DST_WIKI}"
 
 DIR="${SRC_PATH%/*}"
