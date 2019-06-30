@@ -12,8 +12,9 @@ The following environment variable options can be configured:
 |Environment variable|Description| Type |Default|
 |-------|-----------| ---- |-------|
 |`SRC_PATH`|The source path to the file(s) or folder(s) to copy from. For example,`home.md`|`String`||
-|`DST`|The destination path to copy the file(s) or folder(s) to. For example, `pages/.`. |`String`|`SRC_PATH`|
-|`REPOSITORY`|The repository to push to. Consists of the owner and repository name. For example, `andstor/copycat-action`.|`String`||
+|`DST_PATH`|The destination path to copy the file(s) or folder(s) to. For example, `pages/.`. |`String`|`SRC_PATH`|
+|`DST_OWNER`|The name of the owner of the repository to push to. For example, `andstor`.|`String`||
+|`DST_REPO_NAME`|The name of the repository to push to. For example, `copycat-action`.|`String`||
 |`SRC_BRANCH`|The branch name of the source repository. Optional.|`String`|`master`|
 |`DST_BRANCH`|The branch name of the destination repository. Optional.|`String`|`master`|
 |`SRC_WIKI`|If the source repository you want to copy from is the GitHub Wiki.|`Boolean`| `false`|

@@ -5,8 +5,13 @@ if [[ -z "${SRC_PATH}" ]]; then
   exit 1
 fi
 
-if [[ -z "${REPOSITORY}" ]]; then
-  echo "REPOSITORY environment variable is missing. Cannot proceed."
+if [[ -z "${DST_OWNER}" ]]; then
+  echo "DST_OWNER environment variable is missing. Cannot proceed."
+  exit 1
+fi
+
+if [[ -z "${DST_REPO_NAME}" ]]; then
+  echo "DST_REPO_NAME environment variable is missing. Cannot proceed."
   exit 1
 fi
 
@@ -23,26 +28,33 @@ else
 fi
 
 DST_PATH="${DST_PATH:-${SRC_PATH}}"
+
 SRC_BRANCH="${SRC_BRANCH:-master}"
 DST_BRANCH="${DST_BRANCH:-master}"
 
-DIR=${SRC_PATH%/*}
+SRC_REPO="${GITHUB_REPOSITORY}${SRC_WIKI}"
+SRC_REPO_NAME="${GITHUB_REPOSITORY#*/}${SRC_WIKI}"
+DST_REPO="${DST_REPO_NAME}/${DST_OWNER}${DST_WIKI}"
+DST_REPO_NAME="${DST_REPO_NAME}${DST_WIKI}"
+
+DIR="${SRC_PATH%/*}"
 
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
 echo "Copying \"${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 
-git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}${SRC_WIKI}.git
-git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${REPOSITORY}${DST_WIKI}.git
+
+git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${GITHUB_TOKEN}@github.com/${SRC_REPO}.git
+git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${DST_REPO}.git
 
 mkdir -p DIR
-cp -rf ${GITHUB_REPOSITORY}${SRC_WIKI}/${SRC_PATH} ${REPOSITORY}${DST_WIKI}/${DST_PATH}
+cp -rf ${SRC_REPO_NAME}/${SRC_PATH} ${DST_REPO_NAME}/${DST_PATH}
 
-cd ${REPOSITORY}
+cd ${DST_REPO_NAME}
 
 git add -A
-git commit --message "Update ${SRC_PATH}${DST_WIKI} from ${GITHUB_REPOSITORY}${SRC_WIKI}"
+git commit --message "Update \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
 
 git push -u origin ${DST_BRANCH}
 

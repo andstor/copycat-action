@@ -9,5 +9,7 @@ LABEL "com.github.actions.description"="Copy files to other repositories"
 LABEL "com.github.actions.icon"="copy"
 LABEL "com.github.actions.color"="red"
 
+RUN apk add --no-cache git
+
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
