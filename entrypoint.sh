@@ -38,7 +38,7 @@ SRC_REPO_NAME="${GITHUB_REPOSITORY#*/}${SRC_WIKI}"
 DST_REPO="${DST_OWNER}/${DST_REPO_NAME}${DST_WIKI}"
 DST_REPO_NAME="${DST_REPO_NAME}${DST_WIKI}"
 
-DIR="${SRC_PATH%/*}"
+DIR="${DST_PATH%/*}"
 
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
