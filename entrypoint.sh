@@ -43,11 +43,14 @@ DIR="${DST_PATH%/*}"
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
-echo "Copying \"${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
+echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 
 
 git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${GITHUB_TOKEN}@github.com/${SRC_REPO}.git
+rm -rf ${SRC_REPO_NAME}/.git
+
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${DST_REPO}.git
+
 
 mkdir -p ${DST_REPO_NAME}/${DIR}
 cp -rf ${SRC_REPO_NAME}/${SRC_PATH} ${DST_REPO_NAME}/${DST_PATH}
@@ -55,7 +58,7 @@ cp -rf ${SRC_REPO_NAME}/${SRC_PATH} ${DST_REPO_NAME}/${DST_PATH}
 cd ${DST_REPO_NAME}
 
 git add -A
-git commit --message "Update \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+git commit --message "Update \"${SRC_PATH##*/}\" from \"${GITHUB_REPOSITORY}\""
 
 git push -u origin ${DST_BRANCH}
 
