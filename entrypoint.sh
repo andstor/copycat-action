@@ -58,7 +58,7 @@ cp -rf ${SRC_REPO_NAME}/${SRC_PATH} ${DST_REPO_NAME}/${DST_PATH}
 cd ${DST_REPO_NAME}
 
 git add -A
-git commit --message "Update \"${SRC_PATH##*/}\" from \"${GITHUB_REPOSITORY}\""
+git commit --message "Update \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
 
 git push -u origin ${DST_BRANCH}
 
