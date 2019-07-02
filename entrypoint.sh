@@ -1,33 +1,34 @@
 #!/bin/sh
-# Purpose: Detecting Hardware Errors
-# Author: Vivek Gite <vivek@nixcraft.com>
-# Last updated on : 28-Aug-2007
-# -----------------------------------------------
+#
+# @author André Storhaug <andr3.storhaug@gmail.com>
+# @date 2019-07-01
+# @copyright MIT
+# @version 0.1.2
 
 set -o pipefail
 
-if [[ -z "${SRC_PATH}" ]]; then
+if [[ -z "$SRC_PATH" ]]; then
   echo "SRC_PATH environment variable is missing. Cannot proceed."
   exit 1
 fi
 
-if [[ -z "${DST_OWNER}" ]]; then
+if [[ -z "$DST_OWNER" ]]; then
   echo "DST_OWNER environment variable is missing. Cannot proceed."
   exit 1
 fi
 
-if [[ -z "${DST_REPO_NAME}" ]]; then
+if [[ -z "$DST_REPO_NAME" ]]; then
   echo "DST_REPO_NAME environment variable is missing. Cannot proceed."
   exit 1
 fi
 
-if [ -n "${SRC_WIKI}" = true ]; then
+if [ "$SRC_WIKI" = "true" ]; then
     SRC_WIKI=".wiki"
 else
     SRC_WIKI=""
 fi
 
-if [ -n "${DST_WIKI}" = true ]; then
+if [ "$DST_WIKI" = "true" ]; then
     DST_WIKI=".wiki"
 else
     DST_WIKI=""
@@ -55,7 +56,7 @@ if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning '$SRC_REPO' failed"
     exit 1
 fi
-rm -rf ${SRC_REPO_NAME}/.git # TODO remove every file that matches a filter. See issue #1.
+rm -rf ${SRC_REPO_NAME}/.git # TODO: Remove every file that matches a filter (issue #1)
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${DST_REPO}.git
 if [ "$?" -ne 0 ]; then
