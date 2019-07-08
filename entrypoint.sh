@@ -75,7 +75,12 @@ if [ -z "$(git status --porcelain)" ]; then
 else
     # Uncommitted changes
     git add -A
-    git commit --message "Update \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+if [ -d /bin ]; then
+    COMMIT_MESSAGE="Update file(s) in \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+else
+    COMMIT_MESSAGE="Update file \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+fi
+    git commit --message "${COMMIT_MESSAGE}"
 
     git push -u origin ${DST_BRANCH}
 fi
