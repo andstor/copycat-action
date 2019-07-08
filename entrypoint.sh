@@ -51,7 +51,7 @@ git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
 echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 
-git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${GITHUB_TOKEN}@github.com/${SRC_REPO}.git
+git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${SRC_REPO}.git
 if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning '$SRC_REPO' failed"
     exit 1
