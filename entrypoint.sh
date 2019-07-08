@@ -34,6 +34,7 @@ else
     DST_WIKI=""
 fi
 
+BASE_PATH=$(pwd)
 DST_PATH="${DST_PATH:-${SRC_PATH}}"
 
 SRC_BRANCH="${SRC_BRANCH:-master}"
@@ -66,8 +67,13 @@ fi
 
 mkdir -p ${DST_REPO_NAME}/${DIR} || exit "$?"
 cp -rf ${SRC_REPO_NAME}/${SRC_PATH} ${DST_REPO_NAME}/${DST_PATH} || exit "$?"
-
 cd ${DST_REPO_NAME} || exit "$?"
+
+if [ -d "${BASE_PATH}/${SRC_REPO_NAME}/${SRC_PATH}" ]; then
+    COMMIT_MESSAGE="Update file(s) in \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+else
+    COMMIT_MESSAGE="Update file \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+fi
 
 if [ -z "$(git status --porcelain)" ]; then
     # Working directory is clean
@@ -75,11 +81,6 @@ if [ -z "$(git status --porcelain)" ]; then
 else
     # Uncommitted changes
     git add -A
-if [ -d /bin ]; then
-    COMMIT_MESSAGE="Update file(s) in \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
-else
-    COMMIT_MESSAGE="Update file \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
-fi
     git commit --message "${COMMIT_MESSAGE}"
 
     git push -u origin ${DST_BRANCH}
