@@ -4,7 +4,7 @@
 ## Usage
 ```
 action "Copycat" {
-  uses = "andstor/copycat-action@v1.0.0"
+  uses = "andstor/copycat-action@v1.0.1"
   secrets = ["GH_PAT"]
   env = {
     DST_OWNER = "andstor"
