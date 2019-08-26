@@ -29,6 +29,8 @@ The following environment variable options can/must be configured:
 |`DST_BRANCH`|Optional|The branch name of the destination repository. Optional.|`master`|
 |`SRC_WIKI`|Optional|Set to `true` if the source repository you want to copy from is the GitHub Wiki.| `false`|
 |`DST_WIKI`|Optional|Set to `true` if the destination repository you want to copy from is the GitHub Wiki.|`false`|
+|`USERNAME`|Optional|The GitHub username to associate commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables)|
+|`EMAIL`|Optional|The email used for associating commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables)`@users.noreply.github.com`|
 
 ## Secrets
 * `GH_PAT`: (required) GitHub Private Access Token used for the clone/push operations. To create it follow the [GitHub Documentation](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line).

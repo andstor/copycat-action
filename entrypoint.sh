@@ -37,6 +37,9 @@ fi
 BASE_PATH=$(pwd)
 DST_PATH="${DST_PATH:-${SRC_PATH}}"
 
+USERNAME="${USERNAME:-${GITHUB_ACTOR}}"
+EMAIL="${EMAIL:-${GITHUB_ACTOR}@users.noreply.github.com}"
+
 SRC_BRANCH="${SRC_BRANCH:-master}"
 DST_BRANCH="${DST_BRANCH:-master}"
 
@@ -47,8 +50,8 @@ DST_REPO_NAME="${DST_REPO_NAME}${DST_WIKI}"
 
 DIR="${DST_PATH%/*}"
 
-git config --global user.name "${GITHUB_ACTOR}"
-git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+git config --global user.name "${USERNAME}"
+git config --global user.email "${EMAIL}"
 
 echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 
