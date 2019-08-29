@@ -3,17 +3,28 @@
 
 ## Usage
 ```
-action "Copycat" {
-  uses = "andstor/copycat-action@v1.0.1"
-  secrets = ["GH_PAT"]
-  env = {
-    DST_OWNER = "andstor"
-    DST_REPO_NAME = "copycat-action"
-    SRC_WIKI = "true"
-    DST_PATH = "/wiki/"
-    SRC_PATH = "/."
-  }
-}
+name: Copy
+on: gollum
+jobs:
+  copycat:
+    name: Copycat
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Copycat
+      uses: andstor/copycat-action@v1.1.0
+      env:
+        DST_BRANCH: master
+        DST_OWNER: andstor
+        DST_REPO_NAME: copycat-action
+        DST_PATH: /wiki/
+        GH_PAT: ${{ secrets.GH_PAT }}
+        SRC_BRANCH: master
+        SRC_PATH: /.
+        SRC_WIKI: "true"
+        USERNAME: nutsbot
+        EMAIL: andr3.storhaug+bot@gmail.com
+
 ```
 
 ## Environment variables
