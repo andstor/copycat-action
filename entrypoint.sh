@@ -3,7 +3,7 @@
 # @author André Storhaug <andr3.storhaug@gmail.com>
 # @date 2019-07-01
 # @copyright MIT
-# @version 0.1.2
+# @version 1.2.0
 
 set -o pipefail
 
@@ -85,8 +85,7 @@ else
     # Uncommitted changes
     git add -A
     git commit --message "${COMMIT_MESSAGE}"
-
-    git push -u origin ${DST_BRANCH}
+    git push origin ${DST_BRANCH}
 fi
 
 echo "Copying complete 👌"
