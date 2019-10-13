@@ -1,4 +1,8 @@
 # Copycat
+<a href="https://github.com/andstor/copycat-action"><img
+  src="media/logo.svg" alt="Copycat Logo"
+  width="120" height="auto" align="right"></a>
+
 [GitHub action](https://developer.github.com/actions/) for copying files from one repository to another.
 
 ## Usage
