@@ -67,7 +67,7 @@ fi
 rm -rf ${SRC_REPO_NAME}/.git
 
 if [[ -n "$SRC_FILTER" ]]; then
-    find / -type f -not -name "${SRC_FILTER}" -exec rm {} \;
+    find ${SRC_REPO_NAME}/ -type f -not -name "${SRC_FILTER}" -exec rm {} \;
 fi
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${DST_REPO}.git
