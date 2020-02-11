@@ -53,14 +53,22 @@ DIR="${DST_PATH%/*}"
 git config --global user.name "${USERNAME}"
 git config --global user.email "${EMAIL}"
 
-echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
+if [[ -z "$SRC_FILTER" ]]; then
+    echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
+else
+    echo "Copying files matching \"${SRC_FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
+fi
 
 git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${SRC_REPO}.git
 if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning '$SRC_REPO' failed"
     exit 1
 fi
-rm -rf ${SRC_REPO_NAME}/.git # TODO: Remove every file that matches a filter (issue #1)
+rm -rf ${SRC_REPO_NAME}/.git
+
+if [[ -n "$SRC_FILTER" ]]; then
+    find ${SRC_REPO_NAME}/ -type f -not -name "${SRC_FILTER}" -exec rm {} \;
+fi
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${DST_REPO}.git
 if [ "$?" -ne 0 ]; then
