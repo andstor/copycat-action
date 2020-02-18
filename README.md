@@ -42,6 +42,7 @@ The following environment variable options can/must be configured:
 |`DST_REPO_NAME`|Required|The name of the repository to push to. For example, `copycat-action`.||
 |`SRC_BRANCH`|Optional|The branch name of the source repository. Optional.|`master`|
 |`DST_BRANCH`|Optional|The branch name of the destination repository. Optional.|`master`|
+|`SRC_FILTER`|Optional|A pattern for filtering files to be copied. For example `*.sh`||
 |`SRC_WIKI`|Optional|Set to `true` if the source repository you want to copy from is the GitHub Wiki.| `false`|
 |`DST_WIKI`|Optional|Set to `true` if the destination repository you want to copy from is the GitHub Wiki.|`false`|
 |`USERNAME`|Optional|The GitHub username to associate commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables)|
