@@ -1,4 +1,4 @@
-name: 'Copycat'
+name: 'Copycat Action'
 description: 'GitHub Action for copying files to other repositories'
 author: 'André Storhaug'
 branding:
