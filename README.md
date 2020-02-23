@@ -1,58 +1,87 @@
-# Copycat
-<a href="https://github.com/andstor/copycat-action"><img
-  src="media/logo.svg" alt="Copycat Logo"
-  width="120" height="auto" align="right"></a>
+<p align=center>
+	<img width="240" src="media/logo.svg" alt="Copycat Logo">
+</p>
+<h1 align="center">COPYCAT</h1>
 
-[GitHub action](https://developer.github.com/actions/) for copying files from one repository to another.
+> GitHub Action for copying files to other repositories.
+
+This is a [GitHub action](https://developer.github.com/actions/) to copy files from your repository to another external repository. It is also possible to copy files from/to repository Wikis.
+
+This action runs in a Docker container and therefore only supports Linux.
 
 ## Usage
+
+The following example [workflow step](https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow) will copy all files from the repository running the action, to a folder named `backup` in the destination repo `copycat-action`. If the files already exist at the destination repo, they will be overwritten.
+
+```yml
+- name: Copy
+  uses: andstor/copycat-action@v2
+  with:
+    personal_token: ${{ secrets.PERSONAL_TOKEN }}
+    src_path: /.
+    dst_path: /backup/
+    dst_owner: andstor
+    dst_repo_name: copycat-action
 ```
+
+## Options ⚙️
+
+The following input variable options can/must be configured:
+
+|Input variable|Necessity|Description|Default|
+|--------------------|--------|-----------|-------|
+|`src_path`|Required|The source path to the file(s) or folder(s) to copy from. For example, `/.` or `path/to/home.md`.||
+|`dst_path`|Optional|The destination path to copy the file(s) or folder(s) to. For example, `/wiki/` or `path/to/index.md`. |`src_path`|
+|`dst_owner`|Required|The name of the owner of the repository to push to. For example, `andstor`.||
+|`dst_repo_name`|Required|The name of the repository to push to. For example, `copycat-action`.||
+|`src_branch`|Optional|The branch name of the source repository.|`master`|
+|`dst_branch`|Optional|The branch name of the destination repository.|`master`|
+|`src_filter`|Optional|A pattern for filtering files to be copied. For example `*.sh`||
+|`src_wiki`|Optional|Set to `true` if the source repository you want to copy from is the GitHub Wiki.| `false`|
+|`dst_wiki`|Optional|Set to `true` if the destination repository you want to copy from is the GitHub Wiki.|`false`|
+|`username`|Optional|The GitHub username to associate commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables)|
+|`email`|Optional|The email used for associating commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables)`@users.noreply.github.com`|
+
+## Secrets
+
+* `personal_token`: (required) GitHub Private Access Token used for the clone/push operations. To create it follow the [GitHub Documentation](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line).
+
+
+## Examples
+
+### Copy wiki files to external repo
+
+This workflow configuration will copy all files from the repository's wiki to a folder named `wiki` in the destination repo `andstor.github.io`.
+
+This can for example be used to merge several wikies of an organisation, and display them on a custom GitHub Pages site. The Jekyll theme [Paper](https://github.com/andstor/jekyll-theme-paper) has support for this.
+
+```yml
 name: Copy
 on: gollum
 jobs:
-  copycat:
-    name: Copycat
+  copy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
     - name: Copycat
-      uses: andstor/copycat-action@v1.1.0
-      env:
-        DST_BRANCH: master
-        DST_OWNER: andstor
-        DST_REPO_NAME: copycat-action
-        DST_PATH: /wiki/
-        GH_PAT: ${{ secrets.GH_PAT }}
-        SRC_BRANCH: master
-        SRC_PATH: /.
-        SRC_WIKI: "true"
-        USERNAME: nutsbot
-        EMAIL: andr3.storhaug+bot@gmail.com
-
+      uses: andstor/copycat-action@v2
+      with:
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}
+        src_path: /.
+        dst_path: /wiki/
+        dst_owner: andstor
+        dst_repo_name: andstor.github.io
+        dst_branch: master
+        src_branch: master
+        src_wiki: true
+        dst_wiki: false
+        username: nutsbot
+        email: andr3.storhaug+bot@gmail.com
 ```
 
-## Environment variables
-The following environment variable options can/must be configured:
-
-|Environment variable|Required|Description|Default|
-|--------------------|--------|-----------|-------|
-|`SRC_PATH`|Required|The source path to the file(s) or folder(s) to copy from. For example, `/.` or `path/to/home.md`.||
-|`DST_PATH`|Optional|The destination path to copy the file(s) or folder(s) to. For example, `/wiki/` or `path/to/index.md`. |`SRC_PATH`|
-|`DST_OWNER`|Required|The name of the owner of the repository to push to. For example, `andstor`.||
-|`DST_REPO_NAME`|Required|The name of the repository to push to. For example, `copycat-action`.||
-|`SRC_BRANCH`|Optional|The branch name of the source repository. Optional.|`master`|
-|`DST_BRANCH`|Optional|The branch name of the destination repository. Optional.|`master`|
-|`SRC_FILTER`|Optional|A pattern for filtering files to be copied. For example `*.sh`||
-|`SRC_WIKI`|Optional|Set to `true` if the source repository you want to copy from is the GitHub Wiki.| `false`|
-|`DST_WIKI`|Optional|Set to `true` if the destination repository you want to copy from is the GitHub Wiki.|`false`|
-|`USERNAME`|Optional|The GitHub username to associate commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables)|
-|`EMAIL`|Optional|The email used for associating commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables)`@users.noreply.github.com`|
-
-## Secrets
-* `GH_PAT`: (required) GitHub Private Access Token used for the clone/push operations. To create it follow the [GitHub Documentation](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line).
-
 ## Author
+
 The Copycat GitHub action is written by [André Storhaug](https://github.com/andstor) <andr3.storhaug@gmail.com>
 
 ## License
+
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) - see the [LICENSE](LICENSE) file for details.

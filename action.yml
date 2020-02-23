@@ -1,0 +1,63 @@
+name: 'Copycat'
+description: 'GitHub Action for copying files to other repositories'
+author: 'André Storhaug'
+branding:
+  icon: 'copy'
+  color: 'red'
+inputs:
+  personal_token:
+    description: 'Personal access token'
+    required: true
+  src_path:
+    description: 'The source path to the file(s) or folder(s) to copy from'
+    required: true
+  dst_path:
+    description: 'The destination path to copy the file(s) or folder(s) to'
+    required: false
+  dst_owner:
+    description: 'The name of the owner of the repository to push to'
+    required: true
+  dst_repo_name:
+    description: 'The name of the repository to push to'
+    required: true
+  src_branch:
+    description: 'The branch name of the source repository'
+    required: false
+    default: 'master'
+  dst_branch:
+    description: 'The branch name of the destination repository'
+    required: false
+    default: 'master'
+  src_filter:
+    description: 'A pattern for filtering files to be copied'
+    required: false
+  src_wiki:
+    description: 'Set to true if the source repository you want to copy from is the GitHub Wiki'
+    default: false
+    required: false
+  dst_wiki:
+    description: 'Set to true if the destination repository you want to copy from is the GitHub Wiki'
+    required: false
+    default: false
+  username:
+    description: 'The GitHub username to associate commits made by this GitHub action'
+    required: false
+  email:
+    description: 'The email used for associating commits made by this GitHub action'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.personal_token }}
+    - ${{ inputs.src_path }}
+    - ${{ inputs.dst_path }}
+    - ${{ inputs.dst_owner }}
+    - ${{ inputs.dst_repo_name }}
+    - ${{ inputs.src_branch }}
+    - ${{ inputs.dst_branch }}
+    - ${{ inputs.src_filter }}
+    - ${{ inputs.src_wiki }}
+    - ${{ inputs.dst_wiki }}
+    - ${{ inputs.username }}
+    - ${{ inputs.email }}
