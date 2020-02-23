@@ -1,11 +1,23 @@
 #!/bin/sh
 #
 # @author André Storhaug <andr3.storhaug@gmail.com>
-# @date 2019-07-01
-# @copyright MIT
-# @version 1.2.0
+# @date 2020-02-22
+# @license MIT
+# @version 2.0.0
 
 set -o pipefail
+
+PERSONAL_TOKEN="$INPUT_PERSONAL_TOKEN"
+SRC_PATH="$INPUT_SRC_PATH"
+DST_PATH="$INPUT_DST_PATH"
+DST_OWNER="$INPUT_DST_OWNER"
+DST_REPO_NAME="$INPUT_DST_REPO_NAME"
+SRC_BRANCH="$INPUT_SRC_BRANCH"
+DST_BRANCH="$INPUT_DST_BRANCH"
+SRC_WIKI="$INPUT_SRC_WIKI"
+DST_WIKI="$INPUT_DST_WIKI"
+USERNAME="$INPUT_USERNAME"
+EMAIL="$INPUT_EMAIL"
 
 if [[ -z "$SRC_PATH" ]]; then
   echo "SRC_PATH environment variable is missing. Cannot proceed."
@@ -59,7 +71,7 @@ else
     echo "Copying files matching \"${SRC_FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 fi
 
-git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${SRC_REPO}.git
+git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${SRC_REPO}.git
 if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning '$SRC_REPO' failed"
     exit 1
@@ -70,7 +82,7 @@ if [[ -n "$SRC_FILTER" ]]; then
     find ${SRC_REPO_NAME}/ -type f -not -name "${SRC_FILTER}" -exec rm {} \;
 fi
 
-git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${GH_PAT}@github.com/${DST_REPO}.git
+git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
 if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning '$DST_REPO' failed"
     exit 1
