@@ -28,8 +28,8 @@ inputs:
     description: 'The branch name of the destination repository'
     required: false
     default: 'master'
-  src_filter:
-    description: 'A pattern for filtering files to be copied'
+  filter:
+    description: 'A extglob pattern for filtering files to be copied'
     required: false
   src_wiki:
     description: 'Set to true if the source repository you want to copy from is the GitHub Wiki'
@@ -56,7 +56,7 @@ runs:
     - ${{ inputs.dst_repo_name }}
     - ${{ inputs.src_branch }}
     - ${{ inputs.dst_branch }}
-    - ${{ inputs.src_filter }}
+    - ${{ inputs.filter }}
     - ${{ inputs.src_wiki }}
     - ${{ inputs.dst_wiki }}
     - ${{ inputs.username }}
