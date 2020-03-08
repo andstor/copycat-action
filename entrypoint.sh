@@ -85,7 +85,7 @@ rm -rf ${SRC_REPO_NAME}/.git
 if [[ -n "$SRC_FILTER" ]]; then
     for f in ${SRC_REPO_NAME}/**/!(${$SRC_FILTER}) ; do
       [ -e "$f" ] || continue
-      [ -d "$f! ] && continue
+      [ -d "$f" ] && continue
       rm $f
     done
 fi
