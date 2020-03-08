@@ -17,7 +17,7 @@ DST_OWNER="$INPUT_DST_OWNER"
 DST_REPO_NAME="$INPUT_DST_REPO_NAME"
 SRC_BRANCH="$INPUT_SRC_BRANCH"
 DST_BRANCH="$INPUT_DST_BRANCH"
-SRC_FILTER="$INPUT_SRC_FILTER"
+FILTER="$INPUT_FILTER"
 SRC_WIKI="$INPUT_SRC_WIKI"
 DST_WIKI="$INPUT_DST_WIKI"
 USERNAME="$INPUT_USERNAME"
@@ -65,14 +65,15 @@ DST_REPO="${DST_OWNER}/${DST_REPO_NAME}${DST_WIKI}"
 DST_REPO_NAME="${DST_REPO_NAME}${DST_WIKI}"
 
 DIR="${DST_PATH%/*}"
+FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
 
 git config --global user.name "${USERNAME}"
 git config --global user.email "${EMAIL}"
 
-if [[ -z "$SRC_FILTER" ]]; then
+if [[ -z "$FILTER" ]]; then
     echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 else
-    echo "Copying files matching \"${SRC_FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
+    echo "Copying files matching \"${FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 fi
 
 git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${SRC_REPO}.git
@@ -82,11 +83,15 @@ if [ "$?" -ne 0 ]; then
 fi
 rm -rf ${SRC_REPO_NAME}/.git
 
-if [[ -n "$SRC_FILTER" ]]; then
-    for f in ${SRC_REPO_NAME}/**/!(${SRC_FILTER}) ; do
+tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
+
+if [[ -n "$FILTER" ]]; then
+    FINAL_SOURCE="${tmp_dir}/${SRC_REPO_NAME}/${SRC_PATH}"
+    for f in ${SRC_REPO_NAME}/${FILTER} ; do
       [ -e "$f" ] || continue
       [ -d "$f" ] && continue
-      rm $f
+      file_dir=$(dirname "${f}")
+      mkdir -p ${tmp_dir}/${file_dir} && cp ${f} ${tmp_dir}/${file_dir}
     done
 fi
 
@@ -97,10 +102,11 @@ if [ "$?" -ne 0 ]; then
 fi
 
 mkdir -p ${DST_REPO_NAME}/${DIR} || exit "$?"
-cp -rf ${SRC_REPO_NAME}/${SRC_PATH} ${DST_REPO_NAME}/${DST_PATH} || exit "$?"
+cp -rf ${FINAL_SOURCE} ${DST_REPO_NAME}/${DST_PATH} || exit "$?"
+rm -rf $tmp_dir || exit "$?"
 cd ${DST_REPO_NAME} || exit "$?"
 
-if [ -d "${BASE_PATH}/${SRC_REPO_NAME}/${SRC_PATH}" ]; then
+if [ -d "${BASE_PATH}/${FINAL_SOURCE}" ]; then
     COMMIT_MESSAGE="Update file(s) in \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
 else
     COMMIT_MESSAGE="Update file \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
