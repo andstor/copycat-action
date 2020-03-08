@@ -4,4 +4,4 @@ RUN apk add --no-cache bash
 RUN apk add --no-cache git
 
 COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/bin/bash", "./entrypoint.sh"]
