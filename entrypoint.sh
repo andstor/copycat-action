@@ -1,11 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 #
 # @author André Storhaug <andr3.storhaug@gmail.com>
-# @date 2020-02-22
+# @date 2020-03-08
 # @license MIT
-# @version 2.0.0
+# @version 2.1.0
 
 set -o pipefail
+
+shopt -s extglob
+shopt -s globstar
 
 PERSONAL_TOKEN="$INPUT_PERSONAL_TOKEN"
 SRC_PATH="$INPUT_SRC_PATH"
@@ -14,6 +17,7 @@ DST_OWNER="$INPUT_DST_OWNER"
 DST_REPO_NAME="$INPUT_DST_REPO_NAME"
 SRC_BRANCH="$INPUT_SRC_BRANCH"
 DST_BRANCH="$INPUT_DST_BRANCH"
+SRC_FILTER="$INPUT_SRC_FILTER"
 SRC_WIKI="$INPUT_SRC_WIKI"
 DST_WIKI="$INPUT_DST_WIKI"
 USERNAME="$INPUT_USERNAME"
@@ -79,7 +83,11 @@ fi
 rm -rf ${SRC_REPO_NAME}/.git
 
 if [[ -n "$SRC_FILTER" ]]; then
-    find ${SRC_REPO_NAME}/ -type f -not -name "${SRC_FILTER}" -exec rm {} \;
+    for f in ${SRC_REPO_NAME}/**/!(${$SRC_FILTER}) ; do
+      [ -e "$f" ] || continue
+      [ -d "$f! ] && continue
+      rm $f
+    done
 fi
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
