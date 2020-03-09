@@ -36,7 +36,8 @@ The following input variable options can/must be configured:
 |`dst_repo_name`|Required|The name of the repository to push to. For example, `copycat-action`.||
 |`src_branch`|Optional|The branch name of the source repository.|`master`|
 |`dst_branch`|Optional|The branch name of the destination repository.|`master`|
-|`src_filter`|Optional|A pattern for filtering files to be copied. For example `*.sh`||
+|`filter`|Optional|A glob pattern for filtering files to be copied. Acts on file paths. For example `**/*.sh`||
+|`exclude`|Optional|A glob pattern for excluding paths. For example `*/dev/*`||
 |`src_wiki`|Optional|Set to `true` if the source repository you want to copy from is the GitHub Wiki.| `false`|
 |`dst_wiki`|Optional|Set to `true` if the destination repository you want to copy from is the GitHub Wiki.|`false`|
 |`username`|Optional|The GitHub username to associate commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables)|
