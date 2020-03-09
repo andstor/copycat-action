@@ -16,6 +16,7 @@ DST_OWNER="$INPUT_DST_OWNER"
 DST_REPO_NAME="$INPUT_DST_REPO_NAME"
 SRC_BRANCH="$INPUT_SRC_BRANCH"
 DST_BRANCH="$INPUT_DST_BRANCH"
+CLEAN="$INPUT_CLEAN"
 FILE_FILTER="$INPUT_FILE_FILTER"
 FILTER="$INPUT_FILTER"
 EXCLUDE="$INPUT_EXCLUDE"
@@ -112,6 +113,10 @@ git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TO
 if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning '$DST_REPO' failed"
     exit 1
+fi
+
+if [ "$CLEAN" = "true" ]; then
+    find ${FINAL_SOURCE} -delete
 fi
 
 mkdir -p ${DST_REPO_NAME}/${DIR} || exit "$?"
