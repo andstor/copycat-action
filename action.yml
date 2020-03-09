@@ -32,7 +32,7 @@ inputs:
     description: 'A glob pattern for filtering files to be copied'
     required: false
   exclude:
-    description: 'A glob pattern for excluding directories to be copied'
+    description: 'A glob pattern for excluding paths'
     required: false
   src_wiki:
     description: 'Set to true if the source repository you want to copy from is the GitHub Wiki'
@@ -60,6 +60,7 @@ runs:
     - ${{ inputs.src_branch }}
     - ${{ inputs.dst_branch }}
     - ${{ inputs.filter }}
+    - ${{ inputs.exclude }}
     - ${{ inputs.src_wiki }}
     - ${{ inputs.dst_wiki }}
     - ${{ inputs.username }}
