@@ -28,6 +28,9 @@ inputs:
     description: 'The branch name of the destination repository'
     required: false
     default: 'master'
+  clean:
+    description: 'Set to true if the dst_path should be emptied before copying'
+    required: false
   file_filter:
     description: 'A glob pattern for filtering file names'
     required: false
@@ -62,6 +65,7 @@ runs:
     - ${{ inputs.dst_repo_name }}
     - ${{ inputs.src_branch }}
     - ${{ inputs.dst_branch }}
+    - ${{ inputs.clean }}
     - ${{ inputs.file_filter }}
     - ${{ inputs.filter }}
     - ${{ inputs.exclude }}
