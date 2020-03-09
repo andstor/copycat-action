@@ -51,7 +51,7 @@ else
 fi
 
 if [[ -n "$EXCLUDE" && -z "$FILTER" ]]; then
-    $FILTER=**
+    FILTER="**"
 fi
 
 BASE_PATH=$(pwd)
