@@ -40,15 +40,12 @@ fi
 
 if [ "$SRC_WIKI" = "true" ]; then
     SRC_WIKI=".wiki"
-    exit 1
 else
     SRC_WIKI=""
-    exit 1
 fi
 
 if [ "$DST_WIKI" = "true" ]; then
     DST_WIKI=".wiki"
-    exit 1
 else
     DST_WIKI=""
 fi
