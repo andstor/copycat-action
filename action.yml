@@ -28,8 +28,11 @@ inputs:
     description: 'The branch name of the destination repository'
     required: false
     default: 'master'
+  file_filter:
+    description: 'A glob pattern for filtering file names'
+    required: false
   filter:
-    description: 'A glob pattern for filtering files to be copied'
+    description: 'A glob pattern for filtering file paths to be included for copying'
     required: false
   exclude:
     description: 'A glob pattern for excluding paths'
@@ -59,6 +62,7 @@ runs:
     - ${{ inputs.dst_repo_name }}
     - ${{ inputs.src_branch }}
     - ${{ inputs.dst_branch }}
+    - ${{ inputs.file_filter }}
     - ${{ inputs.filter }}
     - ${{ inputs.exclude }}
     - ${{ inputs.src_wiki }}
