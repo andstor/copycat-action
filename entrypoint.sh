@@ -16,6 +16,7 @@ DST_OWNER="$INPUT_DST_OWNER"
 DST_REPO_NAME="$INPUT_DST_REPO_NAME"
 SRC_BRANCH="$INPUT_SRC_BRANCH"
 DST_BRANCH="$INPUT_DST_BRANCH"
+FILE_FILTER="$INPUT_FILE_FILTER"
 FILTER="$INPUT_FILTER"
 EXCLUDE="$INPUT_EXCLUDE"
 SRC_WIKI="$INPUT_SRC_WIKI"
@@ -74,10 +75,10 @@ FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
 git config --global user.name "${USERNAME}"
 git config --global user.email "${EMAIL}"
 
-if [[ -z "$FILTER" ]]; then
+if [[ -z "$FILE_FILTER" ]]; then
     echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 else
-    echo "Copying files matching \"${FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
+    echo "Copying files matching \"${FILE_FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${GITHUB_REPOSITORY}"
 fi
 
 git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${SRC_REPO}.git
@@ -86,6 +87,10 @@ if [ "$?" -ne 0 ]; then
     exit 1
 fi
 rm -rf ${SRC_REPO_NAME}/.git
+
+if [[ -n "$FILE_FILTER" ]]; then
+    find ${SRC_REPO_NAME}/ -type f -not -name "${FILE_FILTER}" -exec rm {} \;
+fi
 
 if [[ -n "$FILTER" ]]; then
     tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
