@@ -30,6 +30,7 @@ inputs:
     default: 'master'
   clean:
     description: 'Set to true if the dst_path should be emptied before copying'
+    default: false
     required: false
   file_filter:
     description: 'A glob pattern for filtering file names'
