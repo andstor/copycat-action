@@ -18,6 +18,7 @@ DST_REPO_NAME="$INPUT_DST_REPO_NAME"
 SRC_BRANCH="$INPUT_SRC_BRANCH"
 DST_BRANCH="$INPUT_DST_BRANCH"
 FILTER="$INPUT_FILTER"
+EXCLUDE="$INPUT_EXCLUDE"
 SRC_WIKI="$INPUT_SRC_WIKI"
 DST_WIKI="$INPUT_DST_WIKI"
 USERNAME="$INPUT_USERNAME"
@@ -83,14 +84,17 @@ if [ "$?" -ne 0 ]; then
 fi
 rm -rf ${SRC_REPO_NAME}/.git
 
-tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 if [[ -n "$FILTER" ]]; then
+    tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     cd ${SRC_REPO_NAME}
     FINAL_SOURCE="${tmp_dir}/${SRC_PATH}"
     
     for f in ${FILTER} ; do
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
+        if [[ -n "$EXCLUDE_DIR" ]] ; then
+            [[ $f == *$EXCLUDE* ]] && continue
+        fi
         file_dir=$(dirname "${f}")
         mkdir -p ${tmp_dir}/${file_dir} && cp ${f} ${tmp_dir}/${file_dir}
     done
@@ -106,7 +110,6 @@ fi
 
 mkdir -p ${DST_REPO_NAME}/${DIR} || exit "$?"
 cp -rf ${FINAL_SOURCE} ${DST_REPO_NAME}/${DST_PATH} || exit "$?"
-rm -rf $tmp_dir || exit "$?"
 cd ${DST_REPO_NAME} || exit "$?"
 
 if [ -d "${BASE_PATH}/${FINAL_SOURCE}" ]; then
