@@ -116,7 +116,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [ "$CLEAN" = "true" ]; then
-    find ${FINAL_SOURCE} -delete
+    find ${DST_REPO_NAME}/${DST_PATH} -delete
 fi
 
 mkdir -p ${DST_REPO_NAME}/${DIR} || exit "$?"
