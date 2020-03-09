@@ -29,7 +29,10 @@ inputs:
     required: false
     default: 'master'
   filter:
-    description: 'A extglob pattern for filtering files to be copied'
+    description: 'A glob pattern for filtering files to be copied'
+    required: false
+  exclude:
+    description: 'A glob pattern for excluding directories to be copied'
     required: false
   src_wiki:
     description: 'Set to true if the source repository you want to copy from is the GitHub Wiki'
