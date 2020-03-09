@@ -52,7 +52,6 @@ fi
 
 if [[ -n "$EXCLUDE" && -z "$FILTER" ]]; then
     $FILTER=**
-    exit 1
 fi
 
 BASE_PATH=$(pwd)
@@ -102,7 +101,6 @@ if [[ -n "$FILTER" ]]; then
         mkdir -p ${tmp_dir}/${file_dir} && cp ${f} ${tmp_dir}/${file_dir}
     done
     cd ../
-    exit 1
 fi
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
