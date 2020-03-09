@@ -105,7 +105,7 @@ if [[ -n "$FILTER" ]]; then
         file_dir=$(dirname "${f}")
         mkdir -p ${tmp_dir}/${file_dir} && cp ${f} ${tmp_dir}/${file_dir}
     done
-    cd ../
+    cd ..
 fi
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
