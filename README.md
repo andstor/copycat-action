@@ -30,15 +30,16 @@ The following input variable options can/must be configured:
 
 |Input variable|Necessity|Description|Default|
 |--------------------|--------|-----------|-------|
-|`src_path`|Required|The source path to the file(s) or folder(s) to copy from. For example, `/.` or `path/to/home.md`.||
-|`dst_path`|Optional|The destination path to copy the file(s) or folder(s) to. For example, `/wiki/` or `path/to/index.md`. |`src_path`|
-|`dst_owner`|Required|The name of the owner of the repository to push to. For example, `andstor`.||
-|`dst_repo_name`|Required|The name of the repository to push to. For example, `copycat-action`.||
+|`src_path`|Required|The source path to the file(s) or folder(s) to copy from. For example `/.` or `path/to/home.md`.||
+|`dst_path`|Optional|The destination path to copy the file(s) or folder(s) to. For example `/wiki/` or `path/to/index.md`. |`src_path`|
+|`dst_owner`|Required|The name of the owner of the repository to push to. For example `andstor`.||
+|`dst_repo_name`|Required|The name of the repository to push to. For example `copycat-action`.||
 |`src_branch`|Optional|The branch name of the source repository.|`master`|
 |`dst_branch`|Optional|The branch name of the destination repository.|`master`|
-|`file_filter`|Optional|A simple glob pattern for filtering files to be copied. Acts on file basename. For example `*.sh`||
-|`filter`|Optional|A glob pattern for filtering files to be copied. Acts on file paths. For example `**/!(*.*)`||
-|`exclude`|Optional|A glob pattern for excluding paths. For example `*/tests/*`||
+|`clean`|Optional|Set to `true` if the `dst_path` should be emptied before copying.|`false`|
+|`file_filter`|Optional|A simple glob pattern for filtering files to be copied. Acts on file basename. For example `*.sh`.||
+|`filter`|Optional|A glob pattern for filtering files to be copied. Acts on file paths. For example `**/!(*.*)`.||
+|`exclude`|Optional|A glob pattern for excluding paths. For example `*/tests/*`.||
 |`src_wiki`|Optional|Set to `true` if the source repository you want to copy from is the GitHub Wiki.| `false`|
 |`dst_wiki`|Optional|Set to `true` if the destination repository you want to copy from is the GitHub Wiki.|`false`|
 |`username`|Optional|The GitHub username to associate commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables)|
