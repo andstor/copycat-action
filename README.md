@@ -15,7 +15,7 @@ The following example [workflow step](https://help.github.com/en/actions/configu
 
 ```yml
 - name: Copy
-  uses: andstor/copycat-action@v2
+  uses: andstor/copycat-action@v3
   with:
     personal_token: ${{ secrets.PERSONAL_TOKEN }}
     src_path: /.
@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Copycat
-      uses: andstor/copycat-action@v2
+      uses: andstor/copycat-action@v3
       with:
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         src_path: /.
