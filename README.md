@@ -42,7 +42,7 @@ The following input variable options can/must be configured:
 |`src_wiki`|Optional|Set to `true` if the source repository you want to copy from is the GitHub Wiki.| `false`|
 |`dst_wiki`|Optional|Set to `true` if the destination repository you want to copy from is the GitHub Wiki.|`false`|
 |`username`|Optional|The GitHub username to associate commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables)|
-|`email`|Optional|The email used for associating commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables)`@users.noreply.github.com`|
+|`email`|Optional|The email used for associating commits made by this GitHub action.|[`GITHUB_ACTOR`](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables) `@users.noreply.github.com`|
 
 ## Secrets
 
