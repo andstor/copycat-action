@@ -24,30 +24,38 @@ USERNAME="$INPUT_USERNAME"
 EMAIL="$INPUT_EMAIL"
 
 if [[ -z "$SRC_PATH" ]]; then
-  echo "SRC_PATH environment variable is missing. Cannot proceed."
-  exit 1
+    echo "SRC_PATH environment variable is missing. Cannot proceed."
+    exit 1
 fi
 
 if [[ -z "$DST_OWNER" ]]; then
-  echo "DST_OWNER environment variable is missing. Cannot proceed."
-  exit 1
+    echo "DST_OWNER environment variable is missing. Cannot proceed."
+    exit 1
 fi
 
 if [[ -z "$DST_REPO_NAME" ]]; then
-  echo "DST_REPO_NAME environment variable is missing. Cannot proceed."
-  exit 1
+    echo "DST_REPO_NAME environment variable is missing. Cannot proceed."
+    exit 1
 fi
 
 if [ "$SRC_WIKI" = "true" ]; then
     SRC_WIKI=".wiki"
+    exit 1
 else
     SRC_WIKI=""
+    exit 1
 fi
 
 if [ "$DST_WIKI" = "true" ]; then
     DST_WIKI=".wiki"
+    exit 1
 else
     DST_WIKI=""
+fi
+
+if [[ -n "$EXCLUDE" && -z "$FILTER" ]]; then
+    $FILTER=**
+    exit 1
 fi
 
 BASE_PATH=$(pwd)
@@ -87,7 +95,6 @@ if [[ -n "$FILTER" ]]; then
     tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     cd ${SRC_REPO_NAME}
     FINAL_SOURCE="${tmp_dir}/${SRC_PATH}"
-    
     for f in ${FILTER} ; do
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
@@ -97,8 +104,8 @@ if [[ -n "$FILTER" ]]; then
         file_dir=$(dirname "${f}")
         mkdir -p ${tmp_dir}/${file_dir} && cp ${f} ${tmp_dir}/${file_dir}
     done
-    
     cd ../
+    exit 1
 fi
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
