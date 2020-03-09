@@ -92,8 +92,8 @@ if [[ -n "$FILTER" ]]; then
     for f in ${FILTER} ; do
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
-        if [[ -n "$EXCLUDE_DIR" ]] ; then
-            [[ $f == *$EXCLUDE* ]] && continue
+        if [[ -n "$EXCLUDE" ]] ; then
+            [[ $f == $EXCLUDE ]] && continue
         fi
         file_dir=$(dirname "${f}")
         mkdir -p ${tmp_dir}/${file_dir} && cp ${f} ${tmp_dir}/${file_dir}
