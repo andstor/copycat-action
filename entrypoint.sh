@@ -5,7 +5,7 @@
 # @license MIT
 # @version 3.0.0
 
-set -o pipefail
+set -xvo pipefail
 
 shopt -s extglob globstar nullglob
 
