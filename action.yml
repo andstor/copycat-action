@@ -28,8 +28,18 @@ inputs:
     description: 'The branch name of the destination repository'
     required: false
     default: 'master'
-  src_filter:
-    description: 'A pattern for filtering files to be copied'
+  clean:
+    description: 'Set to true if the dst_path should be emptied before copying'
+    default: false
+    required: false
+  file_filter:
+    description: 'A glob pattern for filtering file names'
+    required: false
+  filter:
+    description: 'A glob pattern for filtering file paths to be included for copying'
+    required: false
+  exclude:
+    description: 'A glob pattern for excluding paths'
     required: false
   src_wiki:
     description: 'Set to true if the source repository you want to copy from is the GitHub Wiki'
@@ -56,7 +66,10 @@ runs:
     - ${{ inputs.dst_repo_name }}
     - ${{ inputs.src_branch }}
     - ${{ inputs.dst_branch }}
-    - ${{ inputs.src_filter }}
+    - ${{ inputs.clean }}
+    - ${{ inputs.file_filter }}
+    - ${{ inputs.filter }}
+    - ${{ inputs.exclude }}
     - ${{ inputs.src_wiki }}
     - ${{ inputs.dst_wiki }}
     - ${{ inputs.username }}
