@@ -94,8 +94,9 @@ fi
 
 if [[ -n "$FILTER" ]]; then
     tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
+    mkdir ${temp_dir}/${SRC_REPO_NAME}
     cd ${SRC_REPO_NAME}
-    FINAL_SOURCE="${tmp_dir}/${SRC_PATH}"
+    FINAL_SOURCE="${tmp_dir}/${SRC_REPO_NAME}/${SRC_PATH}"
     for f in ${FILTER} ; do
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
@@ -103,7 +104,7 @@ if [[ -n "$FILTER" ]]; then
             [[ $f == $EXCLUDE ]] && continue
         fi
         file_dir=$(dirname "${f}")
-        mkdir -p ${tmp_dir}/${file_dir} && cp ${f} ${tmp_dir}/${file_dir}
+        mkdir -p ${tmp_dir}/${SRC_REPO_NAME}/${file_dir} && cp ${f} ${tmp_dir}/${SRC_REPO_NAME}/${file_dir}
     done
     cd ..
 fi
