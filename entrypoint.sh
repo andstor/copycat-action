@@ -118,8 +118,10 @@ fi
 if [ "$CLEAN" = "true" ]; then
     if [ -f "${DST_REPO_NAME}/${DST_PATH}" ] ; then
         find ${DST_REPO_NAME}/${DST_PATH} -type f -not -path '*/\.git/*' -delete
-    else
+    elif [ -d "${DST_REPO_NAME}/${DST_PATH}" ] ; then
         find ${DST_REPO_NAME}/${DST_PATH%/*}/* -type f -not -path '*/\.git/*' -delete
+    else
+        echo >&2 "Nothing to clean 🧽"
     fi
 fi
 
@@ -127,10 +129,10 @@ mkdir -p ${DST_REPO_NAME}/${DST_PATH%/*} || exit "$?"
 cp -rf ${FINAL_SOURCE} ${DST_REPO_NAME}/${DST_PATH} || exit "$?"
 cd ${DST_REPO_NAME} || exit "$?"
 
-if [ -d "${BASE_PATH}/${FINAL_SOURCE}" ]; then
-    COMMIT_MESSAGE="Update file(s) in \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+if [ -f "${BASE_PATH}/${FINAL_SOURCE}" ]; then
+    COMMIT_MESSAGE="Update file in \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
 else
-    COMMIT_MESSAGE="Update file \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+    COMMIT_MESSAGE="Update file(s) \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
 fi
 
 if [ -z "$(git status --porcelain)" ]; then
