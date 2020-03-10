@@ -70,7 +70,6 @@ SRC_REPO_NAME="${GITHUB_REPOSITORY#*/}${SRC_WIKI}"
 DST_REPO="${DST_OWNER}/${DST_REPO_NAME}${DST_WIKI}"
 DST_REPO_NAME="${DST_REPO_NAME}${DST_WIKI}"
 
-DIR="${DST_PATH%/*}"
 FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
 
 git config --global user.name "${USERNAME}"
@@ -116,10 +115,14 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [ "$CLEAN" = "true" ]; then
-    find ${DST_REPO_NAME}/${DST_PATH} -delete
+    if [ -f "${DST_REPO_NAME}/${DST_PATH}" ] ; then
+        find ${DST_REPO_NAME}/${DST_PATH} -delete
+    else
+        find ${DST_REPO_NAME}/${DST_PATH%/*}/* -delete
+    fi
 fi
 
-mkdir -p ${DST_REPO_NAME}/${DIR} || exit "$?"
+mkdir -p ${DST_REPO_NAME}/${DST_PATH%/*} || exit "$?"
 cp -rf ${FINAL_SOURCE} ${DST_REPO_NAME}/${DST_PATH} || exit "$?"
 cd ${DST_REPO_NAME} || exit "$?"
 
