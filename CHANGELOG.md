@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
-## [3.0.0] - 2020-03-09
+## [3.0.0] - 2020-03-10
 ### Added
 - Input variable `clean` for optional removal of contents in the `dst_path` before copying.
 - Input variable `exclude` for path exclusion filter with glob patterns.
