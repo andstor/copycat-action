@@ -8,6 +8,7 @@
 set -o pipefail
 
 shopt -s extglob globstar nullglob
+shopt -u dotglob
 
 PERSONAL_TOKEN="$INPUT_PERSONAL_TOKEN"
 SRC_PATH="$INPUT_SRC_PATH"
