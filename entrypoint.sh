@@ -8,7 +8,6 @@
 set -o pipefail
 
 shopt -s extglob globstar nullglob
-shopt -u dotglob
 
 PERSONAL_TOKEN="$INPUT_PERSONAL_TOKEN"
 SRC_PATH="$INPUT_SRC_PATH"
@@ -117,9 +116,9 @@ fi
 
 if [ "$CLEAN" = "true" ]; then
     if [ -f "${DST_REPO_NAME}/${DST_PATH}" ] ; then
-        find ${DST_REPO_NAME}/${DST_PATH} -delete
+        find ${DST_REPO_NAME}/${DST_PATH} -type f -not -path '*/\.git/*' -delete
     else
-        find ${DST_REPO_NAME}/${DST_PATH%/*}/* -delete
+        find ${DST_REPO_NAME}/${DST_PATH%/*}/* -type f -not -path '*/\.git/*' -delete
     fi
 fi
 
