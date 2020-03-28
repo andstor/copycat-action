@@ -104,7 +104,7 @@ if [[ -n "$FILTER" ]]; then
             [[ $f == $EXCLUDE ]] && continue
         fi
         file_dir=$(dirname "${f}")
-        mkdir -p ${tmp_dir}/${SRC_REPO_NAME}/${file_dir} && cp ${f} ${tmp_dir}/${SRC_REPO_NAME}/${file_dir}
+        mkdir -p ${tmp_dir}/${SRC_REPO_NAME}/${file_dir} && cp "${f}" ${tmp_dir}/${SRC_REPO_NAME}/${file_dir}
     done
     cd ..
 fi
