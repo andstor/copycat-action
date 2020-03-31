@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # @author André Storhaug <andr3.storhaug@gmail.com>
-# @date 2020-03-09
+# @date 2020-04-01
 # @license MIT
-# @version 3.0.0
+# @version 3.1.0
 
 set -o pipefail
 
@@ -22,6 +22,7 @@ FILTER="$INPUT_FILTER"
 EXCLUDE="$INPUT_EXCLUDE"
 SRC_WIKI="$INPUT_SRC_WIKI"
 DST_WIKI="$INPUT_DST_WIKI"
+COMMIT_MESSAGE="$INPUT_COMMIT_MESSAGE"
 USERNAME="$INPUT_USERNAME"
 EMAIL="$INPUT_EMAIL"
 
@@ -129,10 +130,12 @@ mkdir -p ${DST_REPO_NAME}/${DST_PATH%/*} || exit "$?"
 cp -rf ${FINAL_SOURCE} ${DST_REPO_NAME}/${DST_PATH} || exit "$?"
 cd ${DST_REPO_NAME} || exit "$?"
 
-if [ -f "${BASE_PATH}/${FINAL_SOURCE}" ]; then
-    COMMIT_MESSAGE="Update file in \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
-else
-    COMMIT_MESSAGE="Update file(s) \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+if [[ -z "${COMMIT_MESSAGE}" ]]; then
+    if [ -f "${BASE_PATH}/${FINAL_SOURCE}" ]; then
+        COMMIT_MESSAGE="Update file in \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+    else
+        COMMIT_MESSAGE="Update file(s) \"${SRC_PATH}\" from \"${GITHUB_REPOSITORY}\""
+    fi
 fi
 
 if [ -z "$(git status --porcelain)" ]; then
