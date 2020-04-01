@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [3.1.1] - 2020-04-01
+### Added
+- Add automatic updating of major version tag on release.
+
 ## [3.1.0] - 2020-04-01
 ### Added
 - Input variable `commit_message` for using a custom commit message.
@@ -30,7 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## 1.0.0 - 2019-07-09
 
-[Unreleased]: https://github.com/andstor/copycat-action/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/andstor/copycat-action/compare/v3.1.1...HEAD
+[3.1.0]: https://github.com/andstor/copycat-action/compare/v3.1.0...v3.1.1
 [3.1.0]: https://github.com/andstor/copycat-action/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/andstor/copycat-action/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/andstor/copycat-action/compare/v2.0.0...v3.0.0
