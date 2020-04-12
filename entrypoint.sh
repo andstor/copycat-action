@@ -112,8 +112,12 @@ fi
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
 if [ "$?" -ne 0 ]; then
-    echo >&2 "Cloning '$DST_REPO' failed"
-    exit 1
+    echo >&2 "Cloning of '$DST_BRANCH' failed, creating the branch locally"
+    git checkout -b ${DST_BRANCH}
+    if [ "$?" -ne 0 ]; then
+        echo >&2 "Creation of Branch '$DST_BRANCH' failed"
+        exit 1
+    fi
 fi
 
 if [ "$CLEAN" = "true" ]; then
