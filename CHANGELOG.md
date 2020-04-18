@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [3.2.0] - 2020-04-18
+### Added
+- Create the destination branch (based on the default branch) if it doesn't exists.
+
 ## [3.1.1] - 2020-04-01
 ### Added
 - Add automatic updating of major version tag on release.
