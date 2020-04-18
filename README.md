@@ -34,8 +34,8 @@ The following input variable options can/must be configured:
 |`dst_path`|Optional|The destination path to copy the file(s) or folder(s) to. For example `/wiki/` or `path/to/index.md`. |`src_path`|
 |`dst_owner`|Required|The name of the owner of the repository to push to. For example `andstor`.||
 |`dst_repo_name`|Required|The name of the repository to push to. For example `copycat-action`.||
-|`src_branch`|Optional|The branch name of the source repository.|`master`|
-|`dst_branch`|Optional|The branch name of the destination repository.|`master`|
+|`src_branch`|Optional|The name of the branch in source repository to clone from.|`master`|
+|`dst_branch`|Optional|The name of the branch in the destination repository to push to. If the branch doesn't exists, the branch will be created based on the default branch.|`master`|
 |`clean`|Optional|Set to `true` if the `dst_path` should be emptied before copying.|`false`|
 |`file_filter`|Optional|A simple [pattern](https://www.gnu.org/software/findutils/manual/html_mono/find.html#Shell-Pattern-Matching) for filtering files to be copied. Acts on file basename. For example `*.sh`.||
 |`filter`|Optional|A glob pattern for filtering files to be copied. Acts on file paths. For example `**/!(*.*)`.||

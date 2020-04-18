@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # @author André Storhaug <andr3.storhaug@gmail.com>
-# @date 2020-04-01
+# @date 2020-04-18
 # @license MIT
-# @version 3.1.0
+# @version 3.2.0
 
 set -o pipefail
 
@@ -112,8 +112,15 @@ fi
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
 if [ "$?" -ne 0 ]; then
-    echo >&2 "Cloning '$DST_REPO' failed"
-    exit 1
+    echo >&2 "Cloning branch '$DST_BRANCH' in '$DST_REPO' failed"
+    echo >&2 "Falling back to default branch"
+    git clone --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
+    echo >&2 "Creating branch '$DST_BRANCH'"
+    git checkout -b ${DST_BRANCH}
+    if [ "$?" -ne 0 ]; then
+        echo >&2 "Creation of Branch '$DST_BRANCH' failed"
+        exit 1
+    fi
 fi
 
 if [ "$CLEAN" = "true" ]; then
