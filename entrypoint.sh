@@ -3,7 +3,7 @@
 # @author André Storhaug <andr3.storhaug@gmail.com>
 # @date 2020-04-18
 # @license MIT
-# @version 3.2.0
+# @version 3.2.1
 
 set -o pipefail
 
