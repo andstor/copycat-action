@@ -115,12 +115,14 @@ if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning branch '$DST_BRANCH' in '$DST_REPO' failed"
     echo >&2 "Falling back to default branch"
     git clone --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
+    cd ${DST_REPO_NAME} || exit "$?"
     echo >&2 "Creating branch '$DST_BRANCH'"
     git checkout -b ${DST_BRANCH}
     if [ "$?" -ne 0 ]; then
         echo >&2 "Creation of Branch '$DST_BRANCH' failed"
         exit 1
     fi
+    cd ..
 fi
 
 if [ "$CLEAN" = "true" ]; then
