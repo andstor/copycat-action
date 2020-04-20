@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [3.2.1] - 2020-04-21
+### Fixed
+- Fixed an error regarding creation of destination branches.
+
 ## [3.2.0] - 2020-04-18
 ### Added
 - Create the destination branch (based on the default branch) if it doesn't exists.
@@ -38,7 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## 1.0.0 - 2019-07-09
 
-[Unreleased]: https://github.com/andstor/copycat-action/compare/v3.2.0...HEAD
+[Unreleased]: https://github.com/andstor/copycat-action/compare/v3.2.1...HEAD
+[3.2.1]: https://github.com/andstor/copycat-action/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/andstor/copycat-action/compare/v3.1.1...v3.2.0
 [3.1.1]: https://github.com/andstor/copycat-action/compare/v3.1.0...v3.1.1
 [3.1.0]: https://github.com/andstor/copycat-action/compare/v3.0.1...v3.1.0
