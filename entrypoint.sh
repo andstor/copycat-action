@@ -129,7 +129,7 @@ if [ "$CLEAN" = "true" ]; then
     if [ -f "${DST_REPO_NAME}/${DST_PATH}" ] ; then
         find "${DST_REPO_NAME}/${DST_PATH}" -type f -not -path '*/\.git/*' -delete
     elif [ -d "${DST_REPO_NAME}/${DST_PATH}" ] ; then
-        find "${DST_REPO_NAME}/${DST_PATH%/*}/*" -type f -not -path '*/\.git/*' -delete
+        find "${DST_REPO_NAME}/${DST_PATH%/*}"/* -type f -not -path '*/\.git/*' -delete
     else
         echo >&2 "Nothing to clean 🧽"
     fi
