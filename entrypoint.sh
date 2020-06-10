@@ -137,7 +137,7 @@ fi
 
 mkdir -p "${DST_REPO_NAME}/${DST_PATH%/*}" || exit "$?"
 cp -rf ${FINAL_SOURCE} "${DST_REPO_NAME}/${DST_PATH}" || exit "$?"
-cd "${DST_REPO_NAME}" || exit "$?"
+cd ${DST_REPO_NAME} || exit "$?"
 
 if [[ -z "${COMMIT_MESSAGE}" ]]; then
     if [ -f "${BASE_PATH}/${FINAL_SOURCE}" ]; then
