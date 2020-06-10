@@ -127,7 +127,7 @@ fi
 
 if [ "$CLEAN" = "true" ]; then
     if [ -f "${DST_REPO_NAME}/${DST_PATH}" ] ; then
-        find ${DST_REPO_NAME}/${DST_PATH} -type f -not -path '*/\.git/*' -delete
+        find "${DST_REPO_NAME}/${DST_PATH}" -type f -not -path '*/\.git/*' -delete
     elif [ -d "${DST_REPO_NAME}/${DST_PATH}" ] ; then
         find ${DST_REPO_NAME}/${DST_PATH%/*}/* -type f -not -path '*/\.git/*' -delete
     else
@@ -136,7 +136,7 @@ if [ "$CLEAN" = "true" ]; then
 fi
 
 mkdir -p "${DST_REPO_NAME}/${DST_PATH%/*}" || exit "$?"
-cp -rf "${FINAL_SOURCE} ${DST_REPO_NAME}/${DST_PATH}" || exit "$?"
+cp -rf ${FINAL_SOURCE} "${DST_REPO_NAME}/${DST_PATH}" || exit "$?"
 cd ${DST_REPO_NAME} || exit "$?"
 
 if [[ -z "${COMMIT_MESSAGE}" ]]; then
