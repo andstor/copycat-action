@@ -110,14 +110,14 @@ if [[ -n "$FILTER" ]]; then
     cd ..
 fi
 
-git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
+git clone --branch "${DST_BRANCH}" --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
 if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning branch '$DST_BRANCH' in '$DST_REPO' failed"
     echo >&2 "Falling back to default branch"
     git clone --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git
     cd ${DST_REPO_NAME} || exit "$?"
     echo >&2 "Creating branch '$DST_BRANCH'"
-    git checkout -b ${DST_BRANCH}
+    git checkout -b "${DST_BRANCH}"
     if [ "$?" -ne 0 ]; then
         echo >&2 "Creation of Branch '$DST_BRANCH' failed"
         exit 1
@@ -127,17 +127,17 @@ fi
 
 if [ "$CLEAN" = "true" ]; then
     if [ -f "${DST_REPO_NAME}/${DST_PATH}" ] ; then
-        find ${DST_REPO_NAME}/${DST_PATH} -type f -not -path '*/\.git/*' -delete
+        find "${DST_REPO_NAME}/${DST_PATH}" -type f -not -path '*/\.git/*' -delete
     elif [ -d "${DST_REPO_NAME}/${DST_PATH}" ] ; then
-        find ${DST_REPO_NAME}/${DST_PATH%/*}/* -type f -not -path '*/\.git/*' -delete
+        find "${DST_REPO_NAME}/${DST_PATH%/*}/*" -type f -not -path '*/\.git/*' -delete
     else
         echo >&2 "Nothing to clean 🧽"
     fi
 fi
 
-mkdir -p ${DST_REPO_NAME}/${DST_PATH%/*} || exit "$?"
-cp -rf ${FINAL_SOURCE} ${DST_REPO_NAME}/${DST_PATH} || exit "$?"
-cd ${DST_REPO_NAME} || exit "$?"
+mkdir -p "${DST_REPO_NAME}/${DST_PATH%/*}" || exit "$?"
+cp -rf "${FINAL_SOURCE} ${DST_REPO_NAME}/${DST_PATH}" || exit "$?"
+cd "${DST_REPO_NAME}" || exit "$?"
 
 if [[ -z "${COMMIT_MESSAGE}" ]]; then
     if [ -f "${BASE_PATH}/${FINAL_SOURCE}" ]; then
@@ -154,7 +154,7 @@ else
     # Uncommitted changes
     git add -A
     git commit --message "${COMMIT_MESSAGE}"
-    git push origin ${DST_BRANCH}
+    git push origin "${DST_BRANCH}"
 fi
 
 echo "Copying complete 👌"
