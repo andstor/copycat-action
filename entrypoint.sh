@@ -98,15 +98,18 @@ if [[ -n "$FILTER" ]]; then
     mkdir ${temp_dir}/${SRC_REPO_NAME}
     cd ${SRC_REPO_NAME}
     FINAL_SOURCE="${tmp_dir}/${SRC_REPO_NAME}/${SRC_PATH}"
+    SAVEIFS=$IFS
+    IFS=$(echo -en "\n\b")
     for f in ${FILTER} ; do
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
         if [[ -n "$EXCLUDE" ]] ; then
-            [[ $f == $EXCLUDE ]] && continue
+            [[ "$f" == $EXCLUDE ]] && continue
         fi
         file_dir=$(dirname "${f}")
-        mkdir -p ${tmp_dir}/${SRC_REPO_NAME}/${file_dir} && cp "${f}" ${tmp_dir}/${SRC_REPO_NAME}/${file_dir}
+        mkdir -p "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}" && cp "${f}" "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}"
     done
+    IFS=$SAVEIFS
     cd ..
 fi
 
