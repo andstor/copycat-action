@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # @author André Storhaug <andr3.storhaug@gmail.com>
-# @date 2020-04-18
+# @date 2020-06-13
 # @license MIT
-# @version 3.2.1
+# @version 3.2.2
 
 set -o pipefail
 
@@ -98,15 +98,18 @@ if [[ -n "$FILTER" ]]; then
     mkdir ${temp_dir}/${SRC_REPO_NAME}
     cd ${SRC_REPO_NAME}
     FINAL_SOURCE="${tmp_dir}/${SRC_REPO_NAME}/${SRC_PATH}"
+    SAVEIFS=$IFS
+    IFS=$(echo -en "\n\b")
     for f in ${FILTER} ; do
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
         if [[ -n "$EXCLUDE" ]] ; then
-            [[ $f == $EXCLUDE ]] && continue
+            [[ "$f" == $EXCLUDE ]] && continue
         fi
         file_dir=$(dirname "${f}")
-        mkdir -p ${tmp_dir}/${SRC_REPO_NAME}/${file_dir} && cp "${f}" ${tmp_dir}/${SRC_REPO_NAME}/${file_dir}
+        mkdir -p "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}" && cp "${f}" "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}"
     done
+    IFS=$SAVEIFS
     cd ..
 fi
 
@@ -127,16 +130,16 @@ fi
 
 if [ "$CLEAN" = "true" ]; then
     if [ -f "${DST_REPO_NAME}/${DST_PATH}" ] ; then
-        find ${DST_REPO_NAME}/${DST_PATH} -type f -not -path '*/\.git/*' -delete
+        find "${DST_REPO_NAME}/${DST_PATH}" -type f -not -path '*/\.git/*' -delete
     elif [ -d "${DST_REPO_NAME}/${DST_PATH}" ] ; then
-        find ${DST_REPO_NAME}/${DST_PATH%/*}/* -type f -not -path '*/\.git/*' -delete
+        find "${DST_REPO_NAME}/${DST_PATH%/*}"/* -type f -not -path '*/\.git/*' -delete
     else
         echo >&2 "Nothing to clean 🧽"
     fi
 fi
 
-mkdir -p ${DST_REPO_NAME}/${DST_PATH%/*} || exit "$?"
-cp -rf ${FINAL_SOURCE} ${DST_REPO_NAME}/${DST_PATH} || exit "$?"
+mkdir -p "${DST_REPO_NAME}/${DST_PATH%/*}" || exit "$?"
+cp -rf "${FINAL_SOURCE}" "${DST_REPO_NAME}/${DST_PATH}" || exit "$?"
 cd ${DST_REPO_NAME} || exit "$?"
 
 if [[ -z "${COMMIT_MESSAGE}" ]]; then
