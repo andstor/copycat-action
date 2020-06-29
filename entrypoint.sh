@@ -101,6 +101,7 @@ if [[ -n "$FILTER" ]]; then
     SAVEIFS=$IFS
     IFS=$(echo -en "\n\b")
     for f in ${FILTER} ; do
+        echo >&2 "FILE: '$f' failed\n"
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
         if [[ -n "$EXCLUDE" ]] ; then
