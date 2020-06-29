@@ -101,10 +101,12 @@ if [[ -n "$FILTER" ]]; then
     SAVEIFS=$IFS
     IFS=$(echo -en "\n\b")
     for f in ${FILTER} ; do
-        echo >&2 "FILE: '$f' failed\n"
+        echo >&2 "FILE: '$f' failed"
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
         if [[ -n "$EXCLUDE" ]] ; then
+
+            echo >&2 "OMG !!!!!!!!!!!!!: '$f' failed '$EXCLUDE'"
             [[ "$f" == $EXCLUDE ]] && continue
         fi
         file_dir=$(dirname "${f}")
