@@ -108,6 +108,7 @@ if [[ -n "$FILTER" ]]; then
 
             echo >&2 "OMG !!!!!!!!!!!!!: '$f' failed '$EXCLUDE'"
             [[ "$f" == $EXCLUDE ]] && continue
+            echo >&2 "OKOKOKOKOKOKOKKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKO"
         fi
         file_dir=$(dirname "${f}")
         mkdir -p "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}" && cp "${f}" "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}"
