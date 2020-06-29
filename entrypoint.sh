@@ -101,15 +101,13 @@ if [[ -n "$FILTER" ]]; then
     SAVEIFS=$IFS
     IFS=$(echo -en "\n\b")
     for f in ${FILTER} ; do
-        f="/${f}"
         echo >&2 "FILE: '$f' failed"
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
         if [[ -n "$EXCLUDE" ]] ; then
 
             echo >&2 "OMG !!!!!!!!!!!!!: '$f' failed '$EXCLUDE'"
-            [[ "$f" == $EXCLUDE ]] && continue
-            echo >&2 "OKOKOKOKOKOKOKKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKO"
+            [[ "/$f" == $EXCLUDE ]] && continue
         fi
         file_dir=$(dirname "${f}")
         mkdir -p "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}" && cp "${f}" "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}"
