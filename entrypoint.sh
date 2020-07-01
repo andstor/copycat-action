@@ -14,7 +14,7 @@ SRC_PATH="$INPUT_SRC_PATH"
 DST_PATH="$INPUT_DST_PATH"
 DST_OWNER="$INPUT_DST_OWNER"
 DST_REPO_NAME="$INPUT_DST_REPO_NAME"
-DST_REPO_DIR="$INPUT_DST_REPO_DIR"
+DST_REPO_DIR=dst_repo_dir
 SRC_BRANCH="$INPUT_SRC_BRANCH"
 DST_BRANCH="$INPUT_DST_BRANCH"
 CLEAN="$INPUT_CLEAN"
@@ -114,10 +114,6 @@ if [[ -n "$FILTER" ]]; then
     cd ..
 fi
 
-
-if [ -z "$DST_REPO_DIR" ]; then
-    DST_REPO_DIR=${DST_REPO_NAME}
-fi
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git ${DST_REPO_DIR}
 if [ "$?" -ne 0 ]; then
