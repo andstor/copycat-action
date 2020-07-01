@@ -20,6 +20,9 @@ inputs:
   dst_repo_name:
     description: 'The name of the repository to push to'
     required: true
+  dst_repo_dir:
+    description: 'Optional, provide a different dir name if the destination repo is or has the same name with the source repo to avoid conflict'
+    required: false
   src_branch:
     description: 'The branch name of the source repository'
     required: false
@@ -67,6 +70,7 @@ runs:
     - ${{ inputs.dst_path }}
     - ${{ inputs.dst_owner }}
     - ${{ inputs.dst_repo_name }}
+    - ${{ inputs.dst_repo_dir }}
     - ${{ inputs.src_branch }}
     - ${{ inputs.dst_branch }}
     - ${{ inputs.clean }}
