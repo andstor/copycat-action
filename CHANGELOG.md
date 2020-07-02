@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [3.2.3] - 2020-07-03
+### Fixed
+- Fixed problem with copying files when the destination repo is the same as the source.
+
 ## [3.2.2] - 2020-06-13
 ### Fixed
 - Proper handling of spaces in path names.
@@ -46,7 +50,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## 1.0.0 - 2019-07-09
 
-[Unreleased]: https://github.com/andstor/copycat-action/compare/v3.2.2...HEAD
+[Unreleased]: https://github.com/andstor/copycat-action/compare/v3.2.3...HEAD
+[3.2.3]: https://github.com/andstor/copycat-action/compare/v3.2.2...v3.2.3
 [3.2.2]: https://github.com/andstor/copycat-action/compare/v3.2.1...v3.2.2
 [3.2.1]: https://github.com/andstor/copycat-action/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/andstor/copycat-action/compare/v3.1.1...v3.2.0
