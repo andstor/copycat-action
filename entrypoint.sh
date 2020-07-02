@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # @author André Storhaug <andr3.storhaug@gmail.com>
-# @date 2020-06-13
+# @date 2020-07-03
 # @license MIT
-# @version 3.2.2
+# @version 3.2.3
 
 set -o pipefail
 
