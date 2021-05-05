@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [3.2.4] - 2021-05-05
+### Fixed
+- Show correct destination repository in log output.
+
 ## [3.2.3] - 2020-07-03
 ### Fixed
 - Fixed problem with copying files when the destination repo is the same as the source.
@@ -50,7 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## 1.0.0 - 2019-07-09
 
-[Unreleased]: https://github.com/andstor/copycat-action/compare/v3.2.3...HEAD
+[Unreleased]: https://github.com/andstor/copycat-action/compare/v3.2.4...HEAD
+[3.2.4]: https://github.com/andstor/copycat-action/compare/v3.2.3...v3.2.4
 [3.2.3]: https://github.com/andstor/copycat-action/compare/v3.2.2...v3.2.3
 [3.2.2]: https://github.com/andstor/copycat-action/compare/v3.2.1...v3.2.2
 [3.2.1]: https://github.com/andstor/copycat-action/compare/v3.2.0...v3.2.1
