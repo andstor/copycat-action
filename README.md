@@ -48,7 +48,7 @@ The following input variable options can/must be configured:
 
 ## Secrets
 
-* `personal_token`: (required) GitHub Private Access Token used for the clone/push operations. To create it follow the [GitHub Documentation](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line).
+* `personal_token`: (required) GitHub Private Access Token used for the clone/push operations. To create it follow the [GitHub Documentation](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). The token has to be added to the repository's secrets.
 
 ## Filtering
 Copycat provides several ways of filtering which files you want to copy.  
