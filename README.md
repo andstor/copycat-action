@@ -95,6 +95,39 @@ jobs:
         email: andr3.storhaug+bot@gmail.com
 ```
 
+
+## Troubleshooting
+
+### Cloning Failed
+Error:
+```
+warning: Could not find remote branch <...> to clone.
+fatal: Remote branch <...> not found in upstream origin
+Cloning '<...>' failed
+```
+By default, `copycat-action` creates a destination branch if it doesn't exist. See more discussion [here](https://github.com/andstor/copycat-action/issues/25).
+If your cloning fails, it is likely due to a typo when you provided the `src_branch` and/or `dst_branch` args to `copycat-action`.
+
+If you don't explicitly provide the `src_branch` and/or `dst_branch` args to `copycat-action`, your default branch names should both be "master". Otherwise you'll get an error very similar to above.
+
+Reference:
+```yaml
+src_branch:
+description: 'The branch name of the source repository'
+required: false
+default: 'master'
+
+dst_branch:
+description: 'The branch name of the destination repository'
+required: false
+default: 'master'
+```
+
+A while back, GitHub started naming the master branch "main" by default. Since `copycat-action` looks for a "master" branch by default, you have to explicity provide branch names if you are using Github's new naming convention "main" for your default branch. Obviously if you are already using custom branch names, you have to explicity specify them.
+
+We are keeping the default for both args as "master" since it is compliant with the *majority* of repos out there.
+
+I might make a PR to add this to the readme, since it's very easy to look over.
 ## Author
 
 The Copycat GitHub action is written by [André Storhaug](https://github.com/andstor) <andr3.storhaug@gmail.com>
