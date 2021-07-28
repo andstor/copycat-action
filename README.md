@@ -95,6 +95,25 @@ jobs:
         email: andr3.storhaug+bot@gmail.com
 ```
 
+## Tips
+
+### Copy folder contents only
+By default, `copycat-action` copies the folder *and* its contents at `src_path` to `dst_path` when the end of your path is a folder.
+To only copy the contents of a folder, you can just include a dot at the end of the `src_path`. The dot at the end tells it to copy the contents of the current directory, not the directory itself. Since this repo uses `cp`, its predictable. This method also will also include hidden files and folders.
+
+Example:
+```yaml
+- name: deploy
+  uses: andstor/copycat-action@v3.2.4
+  with:
+    personal_token: ${{ secrets.GIT_TOKEN }}
+    src_path: some/path/.
+    dst_path: /.
+    dst_owner: username
+    dst_repo_name: repo_name
+    commit_message: 'New Prod Release'
+```
+
 
 ## Troubleshooting
 
@@ -125,9 +144,8 @@ default: 'master'
 
 A while back, GitHub started naming the master branch "main" by default. Since `copycat-action` looks for a "master" branch by default, you have to explicity provide branch names if you are using Github's new naming convention "main" for your default branch. Obviously if you are already using custom branch names, you have to explicity specify them.
 
-We are keeping the default for both args as "master" since it is compliant with the *majority* of repos out there.
+We are keeping the default for both args as "master" since it is compliant with the *majority* of repos out there, but currently exploring options to automatically detect the default branch name.
 
-I might make a PR to add this to the readme, since it's very easy to look over.
 ## Author
 
 The Copycat GitHub action is written by [André Storhaug](https://github.com/andstor) <andr3.storhaug@gmail.com>
