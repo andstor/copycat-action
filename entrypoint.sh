@@ -63,8 +63,18 @@ DST_PATH="${DST_PATH:-${SRC_PATH}}"
 USERNAME="${USERNAME:-${GITHUB_ACTOR}}"
 EMAIL="${EMAIL:-${GITHUB_ACTOR}@users.noreply.github.com}"
 
-SRC_BRANCH="${SRC_BRANCH:-master}"
-DST_BRANCH="${DST_BRANCH:-master}"
+#Default Branch name checks
+
+#SRC
+SRC_DEFAULT_BRANCH_NAME=${git ls-remote --symref https://${PERSONAL_TOKEN}@github.com/${SRC_REPO}.git HEAD | awk '/^ref:/ {sub(/refs\/heads\//, "", $2); print $2}'}
+echo "SRC default branch name is: \"${DEF_BRANCH_NAME}\""
+
+#DST
+DST_DEFAULT_BRANCH_NAME=${git ls-remote --symref https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git HEAD | awk '/^ref:/ {sub(/refs\/heads\//, "", $2); print $2}'}
+echo "DST default branch name is: \"${DEF_BRANCH_NAME}\""
+
+SRC_BRANCH="${origin:-${SRC_DEFAULT_BRANCH_NAME}}"
+DST_BRANCH="${origin:-${DST_DEFAULT_BRANCH_NAME}}"
 
 SRC_REPO="${GITHUB_REPOSITORY}${SRC_WIKI}"
 SRC_REPO_NAME="${GITHUB_REPOSITORY#*/}${SRC_WIKI}"
