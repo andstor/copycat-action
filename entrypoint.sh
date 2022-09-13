@@ -77,11 +77,13 @@ FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
 git config --global user.name "${USERNAME}"
 git config --global user.email "${EMAIL}"
 
+echo "SRC_REPO_NAME :${SRC_REPO_NAME}"
+echo "SRC_REPO :${SRC_REPO}"
 if [[ -z "$SRC_REPO_NAME_TEMP" ]]; then
     echo "SRC_REPO_NAME_TEMP environment variable is missing. Cannot proceed."
 else
 	SRC_REPO="${DST_OWNER}/${SRC_REPO_NAME_TEMP}${SRC_WIKI}"
-    SRC_REPO_NAME="${SRC_REPO_NAME_TEMP#*/}${SRC_WIKI}"
+    SRC_REPO_NAME="${SRC_REPO_NAME_TEMP}/${SRC_WIKI}"
 fi
 
 
