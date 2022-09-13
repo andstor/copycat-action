@@ -80,8 +80,8 @@ git config --global user.email "${EMAIL}"
 if [[ -z "$SRC_REPO_NAME_TEMP" ]]; then
     echo "SRC_REPO_NAME_TEMP environment variable is missing. Cannot proceed."
 else
-	SRC_REPO="${SRC_REPO_NAME_TEMP}${SRC_WIKI}"
-    SRC_REPO_NAME="${SRC_REPO_NAME_TEMP#*/}${SRC_WIKI}"
+	SRC_REPO="${DST_OWNER}/${SRC_REPO_NAME_TEMP}${SRC_WIKI}"
+    SRC_REPO_NAME="${DST_OWNER}/${SRC_REPO_NAME_TEMP#*/}${SRC_WIKI}"
 fi
 
 
