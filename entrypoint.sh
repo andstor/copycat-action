@@ -25,7 +25,7 @@ DST_WIKI="$INPUT_DST_WIKI"
 COMMIT_MESSAGE="$INPUT_COMMIT_MESSAGE"
 USERNAME="$INPUT_USERNAME"
 EMAIL="$INPUT_EMAIL"
-
+SRC_REPO_NAME_TEMP="$INPUT_SRC_REPO_NAME"
 if [[ -z "$SRC_PATH" ]]; then
     echo "SRC_PATH environment variable is missing. Cannot proceed."
     exit 1
@@ -76,6 +76,14 @@ FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
 
 git config --global user.name "${USERNAME}"
 git config --global user.email "${EMAIL}"
+
+if [[ -z "$SRC_REPO_NAME_TEMP" ]]; then
+    echo "SRC_REPO_NAME_TEMP environment variable is missing. Cannot proceed."
+else
+	SRC_REPO="${SRC_REPO_NAME_TEMP}${SRC_WIKI}"
+    SRC_REPO_NAME="${SRC_REPO_NAME_TEMP#*/}${SRC_WIKI}"
+fi
+
 
 if [[ -z "$FILE_FILTER" ]]; then
     echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
