@@ -58,7 +58,7 @@ inputs:
   email:
     description: 'The email used for associating commits made by this GitHub action'
     required: false
-  src_repo_name：
+  src_repo_name:
     description: 'The repo name,default is current'
     required: false
 
