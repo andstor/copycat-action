@@ -72,7 +72,7 @@ DST_REPO="${DST_OWNER}/${DST_REPO_NAME}${DST_WIKI}"
 DST_REPO_NAME="${DST_REPO_NAME}${DST_WIKI}"
 
 DST_REPO_DIR=dst_repo_dir
-FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
+
 
 git config --global user.name "${USERNAME}"
 git config --global user.email "${EMAIL}"
@@ -86,7 +86,7 @@ else
 fi
 echo "SRC_REPO_NAME :${SRC_REPO_NAME}"
 echo "SRC_REPO :${SRC_REPO}"
-
+FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
 if [[ -z "$FILE_FILTER" ]]; then
     echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
 else
