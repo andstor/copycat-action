@@ -65,12 +65,8 @@ EMAIL="${EMAIL:-${GITHUB_ACTOR}@users.noreply.github.com}"
 
 SRC_BRANCH="${SRC_BRANCH:-master}"
 DST_BRANCH="${DST_BRANCH:-master}"
-
-#SRC_REPO="${GITHUB_REPOSITORY}${SRC_WIKI}"
-#SRC_REPO_NAME="${GITHUB_REPOSITORY#*/}${SRC_WIKI}"
 DST_REPO="${DST_OWNER}/${DST_REPO_NAME}${DST_WIKI}"
 DST_REPO_NAME="${DST_REPO_NAME}${DST_WIKI}"
-
 DST_REPO_DIR=dst_repo_dir
 
 
@@ -80,12 +76,12 @@ git config --global user.email "${EMAIL}"
 
 if [[ -z "$SRC_REPO_NAME_TEMP" ]]; then
     echo "SRC_REPO_NAME_TEMP environment variable is missing. Cannot proceed."
+	SRC_REPO="${GITHUB_REPOSITORY}${SRC_WIKI}"
+	SRC_REPO_NAME="${GITHUB_REPOSITORY#*/}${SRC_WIKI}"
 else
 	SRC_REPO="${DST_OWNER}/${SRC_REPO_NAME_TEMP}${SRC_WIKI}"
     SRC_REPO_NAME="${SRC_REPO_NAME_TEMP}/${SRC_WIKI}"
 fi
-echo "SRC_REPO_NAME :${SRC_REPO_NAME}"
-echo "SRC_REPO :${SRC_REPO}"
 FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
 if [[ -z "$FILE_FILTER" ]]; then
     echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
@@ -93,7 +89,6 @@ else
     echo "Copying files matching \"${FILE_FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
 fi
 git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${SRC_REPO}.git
-echo "git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${SRC_REPO}.git"
 if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning '$SRC_REPO' failed"
     exit 1
@@ -126,7 +121,6 @@ fi
 
 
 git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git ${DST_REPO_DIR}
-echo "git clone --branch ${DST_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git ${DST_REPO_DIR}"
 if [ "$?" -ne 0 ]; then
     echo >&2 "Cloning branch '$DST_BRANCH' in '$DST_REPO' failed"
     echo >&2 "Falling back to default branch"
@@ -151,7 +145,6 @@ if [ "$CLEAN" = "true" ]; then
     fi
 fi
 
-echo "FINAL_SOURCE： ${FINAL_SOURCE}"
 mkdir -p "${DST_REPO_DIR}/${DST_PATH%/*}" || exit "$?"
 cp -rf "${FINAL_SOURCE}" "${DST_REPO_DIR}/${DST_PATH}" || exit "$?"
 cd "${DST_REPO_DIR}" || exit "$?"
