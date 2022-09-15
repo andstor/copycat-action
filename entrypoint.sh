@@ -164,7 +164,7 @@ else
     # Uncommitted changes
     git add -A
     git commit --message "${COMMIT_MESSAGE}"
-    git push origin ${DST_BRANCH}
+    git push https://${PERSONAL_TOKEN}@github.com/${DST_REPO}.git ${DST_BRANCH}
 fi
 
 echo "Copying complete 👌"
