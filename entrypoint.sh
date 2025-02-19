@@ -100,7 +100,7 @@ if [[ -n "$FILTER" ]]; then
     cd ${SRC_REPO_NAME}
     FINAL_SOURCE="${tmp_dir}/${SRC_REPO_NAME}/${SRC_PATH}"
     SAVEIFS=$IFS
-    IFS=$(echo -en "\n\b")
+    #IFS=$(echo -en "\n\b")
     for f in ${FILTER} ; do
         echo "File: $f"
         [ -e "$f" ] || continue
@@ -111,7 +111,7 @@ if [[ -n "$FILTER" ]]; then
         file_dir=$(dirname "${f}")
         mkdir -p "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}" && cp "${f}" "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}"
     done
-    IFS=$SAVEIFS
+    #IFS=$SAVEIFS
     cd ..
 fi
 
