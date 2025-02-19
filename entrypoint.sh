@@ -102,6 +102,7 @@ if [[ -n "$FILTER" ]]; then
     SAVEIFS=$IFS
     IFS=$(echo -en "\n\b")
     for f in ${FILTER} ; do
+        echo "File: $f"
         [ -e "$f" ] || continue
         [ -d "$f" ] && continue
         if [[ -n "$EXCLUDE" ]] ; then
@@ -139,6 +140,14 @@ if [ "$CLEAN" = "true" ]; then
         echo >&2 "Nothing to clean 🧽"
     fi
 fi
+
+echo "OMG1"
+
+echo "OMG2 ${FINAL_SOURCE}"
+echo "OMG3 ${DST_REPO_DIR}/${DST_PATH%/*}"
+echo "OMG4 ${DST_REPO_DIR}/${DST_PATH}"
+echo "OMG4 ${DST_REPO_DIR}/${DST_PATH}"
+echo $(ls {*.txt,*svg})
 
 mkdir -p "${DST_REPO_DIR}/${DST_PATH%/*}" || exit "$?"
 cp -rf "${FINAL_SOURCE}" "${DST_REPO_DIR}/${DST_PATH}" || exit "$?"
