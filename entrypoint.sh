@@ -146,8 +146,11 @@ echo "OMG1"
 echo "OMG2 ${FINAL_SOURCE}"
 echo "OMG3 ${DST_REPO_DIR}/${DST_PATH%/*}"
 echo "OMG4 ${DST_REPO_DIR}/${DST_PATH}"
-echo "OMG4 ${DST_REPO_DIR}/${DST_PATH}"
+echo "OMG5 ${FILTER}"
 echo $(ls {*.txt,*svg})
+echo $(ls ${FINAL_SOURCE})
+echo "OMG52wqdwef"
+echo $(ls ${DST_REPO_DIR})
 
 mkdir -p "${DST_REPO_DIR}/${DST_PATH%/*}" || exit "$?"
 cp -rf "${FINAL_SOURCE}" "${DST_REPO_DIR}/${DST_PATH}" || exit "$?"
